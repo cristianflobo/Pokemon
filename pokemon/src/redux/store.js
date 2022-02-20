@@ -4,6 +4,7 @@ import pokeReducer from "./poke"
 
 const rootReducer = combineReducers ({
     pokemones: pokeReducer,
+    
     //usuario:reducer ejemplo
 })
 
