@@ -2,6 +2,8 @@
 import React from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import { obtenerMasPokemones, obtenerPokemonesAccion } from '../redux/poke'
+import { Link } from 'react-router-dom'
+
 
 
 const Pokemones = () => {
@@ -15,7 +17,15 @@ const Pokemones = () => {
             <button onClick={() => dispatch(obtenerMasPokemones())}>MAS POKEMONES</button>
             <ul>
                 {
-                  pokemones && pokemones.map(item => (<li key={item.name}>{item.name}</li>))
+                  pokemones && pokemones.map(item => {
+                      console.log(item)
+                      return <li>
+                  {/* <li key={item.name}>{item.name}</li> */}
+                  <a href={item.url} target="_blank">{item.name}</a>
+                  
+                  </li>
+                })       
+                  
                 }
             </ul>
         </div>
