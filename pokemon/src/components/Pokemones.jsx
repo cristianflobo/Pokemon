@@ -3,26 +3,22 @@ import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import { obtenerInformacion, obtenerMasPokemones, obtenerPokemonesAccion } from '../redux/poke'
 import { Link } from 'react-router-dom'
+import './Card.css'
 
 
 
 const Pokemones = () => {
     const dispatch = useDispatch()
-    const state = useSelector((state) => state);
+    const store1 = useSelector(state => state)
+    const info = useSelector(store => store.pokemones.infoGeneral) //fuvnion flce retorna la store
     const pokemones = useSelector(store => store.pokemones.arrayPoke) //fuvnion flce retorna la store
-    const info = useSelector(store => store.pokemones.info) //fuvnion flce retorna la store
+
     const [data, setData] = useState([])
 
 
-    console.log('state',state);
-    useEffect(() => {
-        console.log('data', data)
-        console.log(state,'state');
-
-        setData (state.pokemones.info)
-
-    }, [info])
-    
+    setTimeout(() => {
+      setData(pokemones)
+     }, 100);
  
     return (
         <div>
@@ -33,22 +29,15 @@ const Pokemones = () => {
             <ul>
                 {
                   pokemones && pokemones.map((item,i) => {
-                      return <li key={i}>
-                  <a >{item.name}</a>
+                      return <li className='Card' key={i}>
+                  <a className='texto-encima' >{item.name}</a>
+                  <img style={{maxHeight: 200, maxHeight:200}} alt="casa" src={item.sprites.other.home.front_default}></img>
                   </li>    
                 })                          
                 }
             </ul>
-            <ul>
-                {
-                 data.length > 1 && data.map((item , index) => {
-                    console.log ('item', item)
-                    return <li key={index}>
-                        <a >{item.name}</a>             
-                    </li>    
-                })                          
-                }
-            </ul>
+        
+            
         </div>
     )
 }
