@@ -7,8 +7,10 @@
 }
 
 .texto-encima{
+    background-color: blueviolet;
     position: absolute;
     margin-left: 55px;
     font-size: 20px;
+    margin-bottom: 10px;
     color: rgb(141, 21, 0);
 }

@@ -2,38 +2,35 @@
 import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import { obtenerInformacion, obtenerMasPokemones, obtenerPokemonesAccion } from '../redux/poke'
-import { Link } from 'react-router-dom'
 import './Card.css'
 
 
 
 const Pokemones = () => {
+    //console.log(props)
     const dispatch = useDispatch()
-    const store1 = useSelector(state => state)
-    const info = useSelector(store => store.pokemones.infoGeneral) //fuvnion flce retorna la store
-    const pokemones = useSelector(store => store.pokemones.arrayPoke) //fuvnion flce retorna la store
+    const poke = useSelector(store => store.pokemones.arrayPoke)
+   // console.log("poke",poke)
+   
 
-    const [data, setData] = useState([])
-
-
-    setTimeout(() => {
-      setData(pokemones)
-     }, 100);
- 
     return (
-        <div>
+        <div >
             Lista de pokemones
             <button onClick={() => dispatch(obtenerPokemonesAccion())}>GET POKEMONES</button>
             <button onClick={() => dispatch(obtenerMasPokemones())}>MAS POKEMONES</button>
             <button onClick={() => dispatch(obtenerInformacion())}>INFO</button>
             <ul>
-                {
-                  pokemones && pokemones.map((item,i) => {
+                { 
+                  poke && poke.map((item,i) => {
                       return <li className='Card' key={i}>
-                  <a className='texto-encima' >{item.name}</a>
-                  <img style={{maxHeight: 200, maxHeight:200}} alt="casa" src={item.sprites.other.home.front_default}></img>
-                  </li>    
-                })                          
+                        <a className='texto-encima' >{item.name}</a>
+                        <img style={{Height: 200, width:200, marginTop:25}} alt="casa" width={"60px"}  height={"160px"} src={item.sprites.other.home.front_default}/>
+                        </li>    
+                    }) 
+                // pokemones && pokemones.map((item,i) => { console.log(item)
+                //       return <li key={i}>{item.name}
+                //         </li>    
+                //     })                           
                 }
             </ul>
         
@@ -43,3 +40,6 @@ const Pokemones = () => {
 }
 
 export default Pokemones
+
+//<a href="URL DESTINO"><img src="URL DE LA IMAGEN"></a>
+//

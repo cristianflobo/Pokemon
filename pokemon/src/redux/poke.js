@@ -5,7 +5,8 @@ let cont = 0
 const dataInicial = {
     arrayPoke: [],
     info: [],
-    infoGeneral: []
+    infoGeneral: [],
+    carga: ""
 }
 
 const OBTENER_POKEMONES_EXITO = "OBTENER_POKEMONES_EXITO"
@@ -14,6 +15,8 @@ const OBTENER_INFORMACION = "OBTENER_INFORMACION"
 
 //reducer
 export default function pokeReducer(state = dataInicial , action){
+    console.log(action)
+    //console.log(action.payload)
     switch(action.type){
         case OBTENER_POKEMONES_EXITO:
             return {
@@ -21,13 +24,15 @@ export default function pokeReducer(state = dataInicial , action){
                 arrayPoke: action.payload
             }
         case OBTENER_MAS_POKEMONES:
-            return {
+
+          return  { 
                 ...state,               
-                arrayPoke: action.payload, //state.arrayPoke.concat(action.payload) CONCATENA
-                info: action.payloadInfo
+               arrayPoke: action.payload, //state.arrayPoke.concat(action.payload) CONCATENA
+               carga : action.carga
+                //info: action.payloadInfo
             }
         case OBTENER_INFORMACION:
-               console.log("3", action.payload)
+               console.log("OBTENER", action)
  
             return {
                 ...state,
@@ -43,68 +48,82 @@ export default function pokeReducer(state = dataInicial , action){
 
 //acciones
 export const obtenerPokemonesAccion = () => async (dispatch) => {
-    console.log("2")
+
     const info1 = []
     const url = []
     try {
-        const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`)
-        respuesta.data.results.map(item => {
-            url.push(item.url)
-        })
-        url.map( async(item) => {
-            const respuesta = await axios.get(item)
+        for (let i = 1; i < 21; i++) {
+            const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
             info1.push(respuesta.data)
-        })
+        }  
 
-        
-        // for (let i = 1; i < 21; i++) {
-        //     const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-        //     info1.push(respuesta.data)
-        // }  
+        // const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`)
+        // respuesta.data.results.map(item => {
+        //     url.push(item.url)
+            
+        // })
+
+        // url.map( async(item) => {
+        //     const respuesta = await axios.get(item)
+        //     info1.push(respuesta.data)   
+        // })
         dispatch({
             type:OBTENER_POKEMONES_EXITO,
             payload:info1,
         })
+        
+              
+       
     } catch (error){
         console.log(error)
-    }
+    } 
+    
 
 }   
 export const obtenerMasPokemones = () => async (dispatch) => {
-    cont = cont + 20
-    const info = [] 
+    cont  = cont + 20
+    const info1 = []
+
+    //console.log(`https://pokeapi.co/api/v2/pokemon?offset=${cont}&limit=20`)
     try {
-        const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${cont}&limit=20`)
-    
-        dispatch({
-            type:OBTENER_MAS_POKEMONES,
-            payload:respuesta.data.results,
-        })
+
+        for (let i = 1+cont; i < 21+cont; i++) {
+            const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+            info1.push(respuesta.data)
+        }  
+
+        // const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${cont}&limit=20`)    
+        // respuesta.data.results.map(item => {
+        //     url.push(item.url)
+        // })
+        // url.map( async(item) => {
+        //     const respuesta = await axios.get(item)
+        //     info1.push(respuesta.data)
+        // })  
+       
         
     }catch (error){
-        console.log(error)
+        console.log("busca error",error)
+    }finally {
+        console.log("listo mas")
+        dispatch({
+            type:OBTENER_MAS_POKEMONES,
+            payload:info1,
+            carga:"true"
+        })
     }
     
 }  
 
-export const obtenerInformacion = () => async (dispatch,getstate) =>{
-    const url = getstate().pokemones.info
-    const info = []
-   try {
-       url.map(async(item) =>{
-        const respuesta = await axios(item)
-        info.push(respuesta.data)
-       })   
-      
-      
-   } catch (error) {
-       console.log(error)
-   }
+export const obtenerInformacion = () => async (dispatch) =>{
+    
+    
+   
   
    
     dispatch ({
                 type:OBTENER_INFORMACION,
-                payload: info
+                payload: "state"
             })
 
 }
