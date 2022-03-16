@@ -1,5 +1,6 @@
 .Card {
     display: inline-block;
+    background-image:url(https://e00-marca.uecdn.es/assets/multimedia/imagenes/2021/05/06/16203333157469.jpg);
     border:3px solid rgb(65, 91, 204);
     border-radius:22px;
     margin-right: 10px;
@@ -7,10 +8,18 @@
 }
 
 .texto-encima{
-    background-color: blueviolet;
+ 
     position: absolute;
     margin-left: 55px;
     font-size: 20px;
     margin-bottom: 10px;
     color: rgb(141, 21, 0);
 }
+
+
+/* background-color: blueviolet;
+position: absolute;
+margin-left: 55px;
+font-size: 20px;
+margin-bottom: 10px;
+color: rgb(141, 21, 0); */

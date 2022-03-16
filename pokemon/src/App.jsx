@@ -11,9 +11,9 @@ function App() {
 
     <Provider store={store}>   
       <Routes>
-        <Route path="/" element={<Pokemones/>}/>
-        <Route path="infromacion" element={<InformacionPoke/>}/>
-      </Routes>
+        <Route path="/" element={<Pokemones/>}/>  
+        <Route path="/informacion/:id"  element={<InformacionPoke/>}/>
+      </Routes> 
     </Provider>
     
   );

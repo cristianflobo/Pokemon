@@ -6,7 +6,7 @@ const dataInicial = {
     arrayPoke: [],
     info: [],
     infoGeneral: [],
-    carga: ""
+    carga: true
 }
 
 const OBTENER_POKEMONES_EXITO = "OBTENER_POKEMONES_EXITO"
@@ -15,7 +15,7 @@ const OBTENER_INFORMACION = "OBTENER_INFORMACION"
 
 //reducer
 export default function pokeReducer(state = dataInicial , action){
-    console.log(action)
+
     //console.log(action.payload)
     switch(action.type){
         case OBTENER_POKEMONES_EXITO:
@@ -48,20 +48,23 @@ export default function pokeReducer(state = dataInicial , action){
 
 //acciones
 export const obtenerPokemonesAccion = () => async (dispatch) => {
-
     const info1 = []
+    const info2 = []
     const url = []
-    try {
+    try {   
         for (let i = 1; i < 21; i++) {
             const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
             info1.push(respuesta.data)
         }  
 
         // const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`)
-        // respuesta.data.results.map(item => {
+        //     respuesta.data.results.map(item => {
         //     url.push(item.url)
-            
-        // })
+        //     })
+        // url.map( async(url)=> {
+        //     const respuesta = await axios.get(url)
+        //     info2.push(respuesta.data)
+        // })  
 
         // url.map( async(item) => {
         //     const respuesta = await axios.get(item)
@@ -86,6 +89,10 @@ export const obtenerMasPokemones = () => async (dispatch) => {
 
     //console.log(`https://pokeapi.co/api/v2/pokemon?offset=${cont}&limit=20`)
     try {
+        dispatch({
+            type:OBTENER_MAS_POKEMONES,
+            carga:false
+        })
 
         for (let i = 1+cont; i < 21+cont; i++) {
             const respuesta = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
@@ -109,7 +116,7 @@ export const obtenerMasPokemones = () => async (dispatch) => {
         dispatch({
             type:OBTENER_MAS_POKEMONES,
             payload:info1,
-            carga:"true"
+            carga:true
         })
     }
     

@@ -1,0 +1,15 @@
+.informacion{
+    display: flex;
+    height: 100vh;
+    background-image:url(https://e00-marca.uecdn.es/assets/multimedia/imagenes/2021/05/06/16203333157469.jpg);
+    background-size:cover ;
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-color: blue;
+}
+.imagen{
+    
+    display:block;
+    margin:auto;
+    
+}
